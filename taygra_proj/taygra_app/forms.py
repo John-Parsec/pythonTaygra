@@ -94,12 +94,23 @@ class CategoriaForm(forms.ModelForm):
 class ProdutoForm(forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ['nome', 'descricao', 'preco', 'categoria']
+        fields = ['nome', 'descricao', 'preco', 'categoria', 'imagem_path', 'desconto', 'quantidade', 'num_produto']
         labels = {
             'nome': 'Nome',
             'descricao': 'Descrição',
             'preco': 'Preço',
-            'categoria': 'Categoria'
+            'categoria': 'Categoria',
+            'imagem_path': 'Imagem',
+            'desconto': 'Desconto',
+            'quantidade': 'Quantidade',
+            'num_produto': 'Número do Produto'
+        }
+        widgets = {
+            'descricao': forms.Textarea(),
+            'preco': forms.NumberInput(),
+            'desconto': forms.NumberInput(),
+            'quantidade': forms.NumberInput(),
+            'num_produto': forms.TextInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -109,6 +120,10 @@ class ProdutoForm(forms.ModelForm):
         self.fields['descricao'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Descrição*', 'required': 'required'})
         self.fields['preco'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Preço*', 'required': 'required'})
         self.fields['categoria'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Categoria*', 'required': 'required'})
+        self.fields['imagem_path'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Imagem*', 'required': 'required'})
+        self.fields['desconto'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Desconto*', 'required': 'required'})
+        self.fields['quantidade'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Quantidade*', 'required': 'required'})
+        self.fields['num_produto'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Número do Produto*', 'required': 'required'})
 
 class StatusForm(forms.ModelForm):
     class Meta:

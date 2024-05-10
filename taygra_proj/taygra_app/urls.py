@@ -14,4 +14,16 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('cadastro/user/', views.signup, name='cadastro_usuario'),
+
+    path('cadastro/', views.cadastros, name='cadastros'),
+    path('add/produto/', views.add_produto, name='add_produto'),
+    path('add/categoria/', views.add_categoria, name='add_categoria'),
+    path('add/pedido/', views.add_pedido, name='add_pedido'),
+    path('add/carrinho/', views.add_carrinho, name='add_carrinho'),
+    path('add/status/', views.add_status, name='add_status'),
+    path('add/endereco/', views.add_endereco, name='add_endereco'),
+    path('add/bairro/', views.add_bairro, name='add_bairro'),
+    path('add/cidade/', views.add_cidade, name='add_cidade'),
+    path('add/estado/', views.add_estado, name='add_estado'),
+    path('add/cep/', views.add_cep, name='add_cep'),
 ]

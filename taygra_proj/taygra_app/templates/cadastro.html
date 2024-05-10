@@ -1,0 +1,77 @@
+{% extends "base.html"%}
+
+{% block conteudo %}
+<div class="container m-0">
+    <div class="row">
+        <div class="col-2 border min-vh-100 ml-2 d-flex">
+            <ul class="nav nav-pills text-center mt-3 flex-column flex-column flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_produto' %} active {% endif %}" 
+                        href="{% url 'add_produto' %}" aria-current="page" href="#">
+                        Produtos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_categoria' %} active {% endif %}" 
+                        href="{% url 'add_categoria' %}" aria-current="page" href="#">
+                        Categorias
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_carrinho' %} active {% endif %}" 
+                        href="{% url 'add_carrinho' %}" aria-current="page" href="#">
+                        Carrinhos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_pedido' %} active {% endif %}" 
+                        href="{% url 'add_pedido' %}" aria-current="page" href="#">
+                        Pedidos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_status' %} active {% endif %}" 
+                        href="{% url 'add_status' %}" aria-current="page" href="#">
+                        Status
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_endereco' %} active {% endif %}" 
+                        href="{% url 'add_endereco' %}" aria-current="page" href="#">
+                        Enderecos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_bairro' %} active {% endif %}" 
+                        href="{% url 'add_bairro' %}" aria-current="page" href="#">
+                        Bairros
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_cidade' %} active {% endif %}" 
+                        href="{% url 'add_cidade' %}" aria-current="page" href="#">
+                        Cidades
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_estado' %} active {% endif %}" 
+                        href="{% url 'add_estado' %}" aria-current="page" href="#">
+                        Estados
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'add_cep' %} active {% endif %}" 
+                        href="{% url 'add_cep' %}" aria-current="page" href="#">
+                        CEPs
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-10 px-5 py-3">
+            {% block form %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

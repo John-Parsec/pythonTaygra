@@ -192,3 +192,199 @@ def produtos(request):
     produto = Produto.objects.order_by('id')
     context = {'produto': produto}
     return render(request, 'produtos.html', context=context)
+def cadastros(request):
+    return render(request, 'cadastro.html')
+
+def add_produto(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        descricao = request.POST.get('descricao')
+        categoria = request.POST.get('categoria')
+        preco = request.POST.get('preco')
+        quantidade = request.POST.get('quantidade')
+        desconto = request.POST.get('desconto')
+        imagem_path = request.POST.get('imagem_path')
+        num_produto = request.POST.get('num_produto')
+
+        produto = Produto(nome=nome, descricao=descricao, preco=preco, categoria=categoria,
+                          quantidade=quantidade, desconto=desconto, imagem_path=imagem_path,
+                          num_produto=num_produto)
+        produto.save()
+
+        return HttpResponseRedirect(reverse('add_produto'))
+
+    if request.method == 'GET':
+        produto_form = ProdutoForm()
+
+        context = {
+            'form': produto_form
+        }
+
+        return render(request, 'cadastros/add_produto.html', context=context)
+    
+def add_categoria(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+
+        categoria = Categoria(nome=nome)
+        categoria.save()
+
+        return HttpResponseRedirect(reverse('add_categoria'))
+
+    if request.method == 'GET':
+        categoria_form = CategoriaForm()
+
+        context = {
+            'form': categoria_form
+        }
+
+        return render(request, 'cadastros/add_categoria.html', context=context)
+    
+def add_pedido(request):
+    if request.method == 'POST':
+        usuario = request.POST.get('usuario')
+        produtos = request.POST.get('produtos')
+        data = request.POST.get('data')
+        total = request.POST.get('total')
+        codigo_barras = request.POST.get('codigo_barras')
+        status = request.POST.get('status')
+
+        pedido = Pedido(usuario=usuario, produtos=produtos, data=data, total=total, codigo_barras=codigo_barras, status=status)
+        pedido.save()
+
+        return HttpResponseRedirect(reverse('add_pedido'))
+
+    if request.method == 'GET':
+        pedido_form = PedidoForm()
+
+        context = {
+            'form': pedido_form
+        }
+
+        return render(request, 'cadastros/add_pedido.html', context=context)
+    
+def add_carrinho(request):
+    if request.method == 'POST':
+        usuario = request.POST.get('usuario')
+        produto = request.POST.get('produto')
+
+        carrinho = Carrinho(usuario=usuario, produto=produto)
+        carrinho.save()
+
+        return HttpResponseRedirect(reverse('add_carrinho'))
+
+    if request.method == 'GET':
+        carrinho_form = CarrinhoForm()
+
+        context = {
+            'form': carrinho_form
+        }
+
+        return render(request, 'cadastros/add_carrinho.html', context=context)
+    
+def add_status(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+
+        status = Status(nome=nome)
+        status.save()
+
+        return HttpResponseRedirect(reverse('add_status'))
+
+    if request.method == 'GET':
+        status_form = StatusForm()
+
+        context = {
+            'form': status_form
+        }
+
+        return render(request, 'cadastros/add_status.html', context=context)
+    
+def add_cep(request):
+    if request.method == 'POST':
+        cep = request.POST.get('cep')
+        logradouro = request.POST.get('logradouro')
+        bairro = request.POST.get('bairro')
+        cidade = request.POST.get('cidade')
+        estado = request.POST.get('estado')
+
+        cep = CEP(cep=cep, logradouro=logradouro, bairro=bairro, cidade=cidade, estado=estado)
+        cep.save()
+
+        return HttpResponseRedirect(reverse('add_cep'))
+    
+def add_endereco(request):
+    if request.method == 'POST':
+        logradouro = request.POST.get('logradouro')
+        numero = request.POST.get('numero')
+        complemento = request.POST.get('compllemento')
+        cep = request.POST.get('cep')
+
+        endereco = Endereco(logradouro=logradouro, numero=numero, complemento=complemento, cep=cep)
+        endereco.save()
+
+        return HttpResponseRedirect(reverse('add_endereco'))
+    
+    if request.method == 'GET':
+        endereco_form = EnderecoForm()
+
+        context = {
+            'form': endereco_form
+        }
+
+        return render(request, 'cadastros/add_endereco.html', context=context)
+
+def add_bairro(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+
+        bairro = Bairro(nome=nome)
+        bairro.save()
+
+        return HttpResponseRedirect(reverse('add_bairro'))
+
+    if request.method == 'GET':
+        bairro_form = BairroForm()
+
+        context = {
+            'form': bairro_form
+        }
+
+        return render(request, 'cadastros/add_bairro.html', context=context)
+    
+def add_cidade(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+
+        cidade = Cidade(nome=nome)
+        cidade.save()
+
+        return HttpResponseRedirect(reverse('add_cidade'))
+
+    if request.method == 'GET':
+        cidade_form = CidadeForm()
+
+        context = {
+            'form': cidade_form
+        }
+
+        return render(request, 'cadastros/add_cidade.html', context=context)
+    
+def add_estado(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        sigla = request.POST.get('sigla')
+
+        estado = Estado(nome=nome, sigla=sigla)
+        estado.save()
+
+        return HttpResponseRedirect(reverse('add_estado'))
+
+    if request.method == 'GET':
+        estado_form = EstadoForm()
+
+        context = {
+            'form': estado_form
+        }
+
+        return render(request, 'cadastros/add_estado.html', context=context)
