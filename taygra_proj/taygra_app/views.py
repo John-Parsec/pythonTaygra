@@ -187,3 +187,8 @@ def index(request):
     produto = Produto.objects.order_by('id')
     context = {'produto': produto}
     return render(request, 'index.html', context=context)
+
+def produtos(request):
+    produto = Produto.objects.order_by('id')
+    context = {'produto': produto}
+    return render(request, 'produtos.html', context=context)
