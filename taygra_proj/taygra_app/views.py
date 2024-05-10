@@ -236,7 +236,6 @@ def produtos(request):
     produto = Produto.objects.order_by('id')
     context = {'produto': produto}
     return render(request, 'produtos.html', context=context)
-<<<<<<< Updated upstream
 def cadastros(request):
     return render(request, 'cadastro.html')
 
@@ -442,10 +441,8 @@ def add_estado(request):
         }
 
         return render(request, 'cadastros/add_estado.html', context=context)
-=======
 
 def promocao(request):
     produto = Produto.objects.order_by('id')
     context = {'produto': produto}
     return render(request, 'promocao.html', context=context)
->>>>>>> Stashed changes
