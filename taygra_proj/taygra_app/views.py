@@ -182,3 +182,8 @@ def signup(request):
         }
 
         return render(request, 'signup.html', context=context)
+
+def index(request):
+    produto = Produto.objects.order_by('id')
+    context = {'produto': produto}
+    return render(request, 'index.html', context=context)
