@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.hashers import make_password
 from django.apps import apps
 
+from taygra_app.forms import *
+
 # Create your views here.
 
 def context_(request):
@@ -114,6 +116,17 @@ def contato(request):
 
         contato = Contato(nome, email, assunto, mensagem)
         contato.save()
+    
+    if request.method == 'GET':
+        contato_form = ContatoForm()
+
+        # context = context_(request)
+
+        context = {
+            'form': contato_form
+        }
+
+        return render(request, 'contato.html', context=context)
 
 def login(request):
     if request.method == 'POST':
