@@ -11,6 +11,8 @@ class Produto(models.Model):
     quantidade = models.IntegerField(validators=[MinValueValidator(0)])
     desconto = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(60)])
     imagem_path = models.CharField(max_length=255)
+    num_produto = models.CharField(max_length=50, null=True)
+
 
     def __str__(self):
         return self.nome
