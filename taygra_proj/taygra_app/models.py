@@ -54,14 +54,14 @@ class Pedido(models.Model):
 
 class Carrinho(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    produtos = models.ManyToManyField(Produto)
+    produto = models.ManyToManyField(Produto)
     
     def __str__(self):
         return f'Carrinho de {self.usuario.username}'
     
     def calcular_total(self):
         total = 0
-        for produto in self.produtos.all():
+        for produto in self.produto.all():
             total += produto.preco_com_desconto()
         return total
     
@@ -88,22 +88,28 @@ class Endereco(models.Model):
     logradouro = models.CharField(max_length=250)
     numero = models.IntegerField()
     complemento = models.CharField(max_length=250)
-    cep = models.CharField(max_length=8)
-    bairro = models.ForeignKey('Bairro', on_delete=models.CASCADE)
+    cep = models.ForeignKey('CEP', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.logradouro}, {self.numero}, {self.complemento} - {self.bairro.nome} - {self.bairro.cidade.nome} - {self.bairro.cidade.estado.sigla} - {self.cep}'
+
+class CEP(models.Model):
+    cep = models.CharField(max_length=8)
+    bairro = models.ForeignKey('Bairro', on_delete=models.CASCADE)
+    cidade = models.ForeignKey('Cidade', on_delete=models.CASCADE)
+    estado = models.ForeignKey('Estado', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.cep
     
 class Bairro(models.Model):
     nome = models.CharField(max_length=250)
-    cidade = models.ForeignKey('Cidade', on_delete=models.CASCADE)
     
     def __str__(self):
         return self.nome
 
 class Cidade(models.Model):
     nome = models.CharField(max_length=250)
-    estado = models.ForeignKey('Estado', on_delete=models.CASCADE)
     
     def __str__(self):
         return self.nome
