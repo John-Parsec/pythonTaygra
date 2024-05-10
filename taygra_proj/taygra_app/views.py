@@ -73,7 +73,7 @@ def pedidos(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
 
-    pedido = Pedido.objects.get(usuario=request.user)
+    pedido = Pedido.objects.all().filter(usuario=request.user)
 
     context = context_(request)
 
@@ -98,12 +98,21 @@ def pedido(request, pedido_id):
     return render(request, 'pedido.html', context=context)
 
 def carrinho(request):
-    pedidos = Pedido.objects.all()
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    
+    produtos_carrinho = Carrinho.objects.all().filter(usuario=request.user)
+
+    total = 0
+
+    for produto in produtos_carrinho:
+        total += produto.preco_com_desconto()
 
     context = context_(request)
 
     context = {
-        'pedidos': pedidos
+        'produtos_carrinho': produtos_carrinho,
+        'total': total
     }
 
     return render(request, 'carrinho.html', context=context)
@@ -219,9 +228,29 @@ def editar_perfil(request):
 
     return HttpResponseRedirect(reverse('perfil'))
 
+def mudar_senha(request):
+    if request.method == 'POST':
+        user = User.objects.get(id=request.user.id)
+
+        user.password = make_password(request.POST.get('password'))
+        user.save()
+        
+        return HttpResponseRedirect(reverse('perfil'))
+
+    if request.method == 'GET':
+        user_form = SignupForm()
+
+        context = {
+            'form': user_form
+        }
+
+        return render(request, 'mudar_senha.html', context=context)
+
 def encerrar_conta(request):
-    # request.user.delete()
-    request.user.is_active = False
+    user = User.objects.get(id=request.user.id)
+    # user.delete()
+    user.is_active = False
+    user.save()
 
     auth_logout(request)
 

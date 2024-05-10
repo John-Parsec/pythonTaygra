@@ -9,15 +9,17 @@
             {% csrf_token %}
             
             {% for campo in form %}
-                <div class="mb-3">
-                    {{ campo }}
-                </div>
-                {% if campo.errors %}
-                <div class="alert alert-danger">
-                    {% for error in campo.errors %}
-                    <strong>{{ error|escape }}</strong>
-                    {% endfor %}
-                </div>
+                {% if campo.name != 'password' %} 
+                    <div class="mb-3">
+                        {{ campo }}
+                    </div>
+                    {% if campo.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in campo.errors %}
+                        <strong>{{ error|escape }}</strong>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 {% endif %}
             {% empty %}
             {% endfor %}
@@ -29,9 +31,10 @@
                     {% endfor %}
                 </div>
             {% endif %}
-
+            <a href="{% url 'mudar_senha' %}"> Esqueceu sua senha? </a>
+            <br>
+            <br>
             <button type="submit" class="btn bg-success text-white">Atualizar Perfil</button>
-            
             <a href="{% url 'encerrar_conta' %}" class="text-danger ">Encerrar conta</a>
         </form>
     </div>

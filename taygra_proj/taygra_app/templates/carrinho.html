@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+{% for produto in produtos_carrinho %}
+
+<p>{{ produto }}</p>
+
+{% endfor %}
+
+{% if produtos_carrinho %}
+    <a href="{% url 'finalizar_compra' %}" class="btn btn-primary">Finalizar Compra</a>
+{% else %}
+    <p> Seu carrinho está vazio </p>
+{% endif %}
+
+<p>Valor total: R$ {{ total }}</p>
+        
+
+{% endblock %}

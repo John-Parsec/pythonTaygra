@@ -16,6 +16,7 @@ urlpatterns = [
     path('perfil/', views.perfil, name='perfil'),
     path('perfil/editar', views.editar_perfil, name='editar_perfil'),
     path('perfil/encerrar', views.encerrar_conta, name='encerrar_conta'),
+    path('perfil/mudar_sennha', views.mudar_senha, name='mudar_senha'),
     path('cadastro/user/', views.signup, name='cadastro_usuario'),
 
     path('cadastro/', views.cadastros, name='cadastros'),
