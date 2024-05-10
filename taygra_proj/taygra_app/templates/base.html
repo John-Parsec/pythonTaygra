@@ -30,6 +30,26 @@
         text-align: center;
     }
 
+    .footer{
+  background-color: rgb(23, 150, 229);
+  margin-bottom: 0;
+  height: 100px;
+  color: white;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.apresentacao {
+  padding: 10px;
+  text-align: justify;
+  text-transform: uppercase;
+  padding: 20px;
+  display: flex;
+}
+
 </style>
   </head>
   <div class="topo-site">
@@ -49,7 +69,8 @@
           </div>
         </div>
       </nav>
-      <div class="numeracao"> <img src="{% static 'arrow-gif-new.gif' %}" height=""> 
+      <div class="numeracao"><img src="{% static 'arrow-gif-new.gif' %}" height=""> 
+        
         <div class="btn-group" role="group" aria-label="Exemplo básico">
             <button type="button" class="btn btn-secondary">33</button>
             <button type="button" class="btn btn-secondary">34</button>
@@ -72,8 +93,9 @@
   <body>
     {% load static %}
     <div class="banner">
-        <img src="{% static 'banner-horizontal-total-otm.jpg' %}" width="80%" height="300" title="Banner">
+        <img src="{% static 'banner-horizontal-total-otm.jpg' %}" width="100%" height="300" title="Banner">
     </div>
+
     <main>
         
         {% block conteudo %}
