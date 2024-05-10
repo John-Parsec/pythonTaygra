@@ -1,3 +1,4 @@
+from collections import defaultdict
 from django.shortcuts import render
 
 from taygra_app.models import Produto, Categoria, Pedido, Contato, Usuario, Status
@@ -97,17 +98,18 @@ def pedido(request, pedido_id):
 
     return render(request, 'pedido.html', context=context)
 
-def carrinho(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('login'))
+def carrinho(request):    
+    carrinhos = Carrinho.objects.all().filter(usuario=request.user)
     
-    produtos_carrinho = Carrinho.objects.all().filter(usuario=request.user)
-
+    # produtos_carrinho = [carrinho.produto.all() for carrinho in carrinhos]
+    produtos_carrinho = []
     total = 0
 
-    for produto in produtos_carrinho:
-        total += produto.preco_com_desconto()
-
+    for carrinho in carrinhos:
+        for produto in carrinho.produto.all():
+            produtos_carrinho.append(produto)
+            total += produto.preco_com_desconto() * carrinho.quantidade_produto
+            
     context = context_(request)
 
     context = {
@@ -340,9 +342,13 @@ def add_carrinho(request):
     if request.method == 'POST':
         usuario = request.POST.get('usuario')
         produto = request.POST.get('produto')
+        quantidade_produto = request.POST.get('quantidade_produto')
 
-        carrinho = Carrinho(usuario=usuario, produto=produto)
-        carrinho.save()
+        usuario = Usuario.objects.get(id=usuario)
+        produto = Produto.objects.get(id=produto)
+        carrinho = Carrinho.objects.create(usuario=usuario, quantidade_produto=quantidade_produto)
+        carrinho.produto.add(produto)
+        
 
         return HttpResponseRedirect(reverse('add_carrinho'))
 
@@ -475,3 +481,12 @@ def promocao(request):
     produto = Produto.objects.order_by('id')
     context = {'produto': produto}
     return render(request, 'promocao.html', context=context)
+
+
+def add_ao_carrinho(resquest, produto_id):
+    produto = Produto.objects.get(id=produto_id)
+    usuario = Usuario.objects.get(id=resquest.user.id)
+    carrinho = Carrinho.objects.create(usuario=usuario, quantidade_produto=1)
+    carrinho.produto.add(produto)
+
+    return HttpResponseRedirect(reverse('carrinho'))

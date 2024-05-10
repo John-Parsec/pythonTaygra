@@ -30,5 +30,6 @@ urlpatterns = [
     path('add/cidade/', views.add_cidade, name='add_cidade'),
     path('add/estado/', views.add_estado, name='add_estado'),
     path('add/cep/', views.add_cep, name='add_cep'),
-    path('promocao/', views.promocao, name='promocao'), 
+    path('promocao/', views.promocao, name='promocao'),
+    path('add_ao_carrinho/<int:produto_id>/', views.add_ao_carrinho, name='add_ao_carrinho'),
 ]

@@ -32,7 +32,7 @@
             <p class="card-text"> <i>Categoria</i> {{p.categoria}}</p>
             <p class="card-text"> <i>Descrição</i> {{p.descricao}}</p>
             <h5>R${{p.preco}}</h5>
-            <a href="" class="btn btn-primary float-top">COMPRAR AGORA</a>
+            <a href="{% url 'add_ao_carrinho' produto_id=p.id %}" class="btn btn-primary float-top">COMPRAR AGORA</a>
       
       
           </div>

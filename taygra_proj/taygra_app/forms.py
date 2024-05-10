@@ -66,14 +66,16 @@ class SignupForm(forms.ModelForm):
 class CarrinhoForm(forms.ModelForm):
     class Meta:
         model = Carrinho
-        fields = ['usuario', 'produto']
+        fields = ['usuario', 'produto', 'quantidade_produto']
         labels = {
             'usuario': 'Usuário ID',
-            'produtos': 'Produto ID'
+            'produtos': 'Produto ID',
+            'quantidade_produto': 'Quantidade'
         }
         widgets = {
             'usuario': forms.Select(),
-            'produto': forms.Select()
+            'produto': forms.Select(),
+            'quantidade_produto': forms.NumberInput()
         }
 
     def __init__(self, *args, **kwargs):
@@ -81,6 +83,7 @@ class CarrinhoForm(forms.ModelForm):
 
         self.fields['usuario'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Usuário*', 'required': 'required'})
         self.fields['produto'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Produto*', 'required': 'required'})
+        self.fields['quantidade_produto'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Quantidade*', 'required': 'required'})
 
 class CategoriaForm(forms.ModelForm):
     class Meta:
