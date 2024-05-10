@@ -17,6 +17,7 @@ urlpatterns = [
     path('perfil/editar', views.editar_perfil, name='editar_perfil'),
     path('perfil/encerrar', views.encerrar_conta, name='encerrar_conta'),
     path('cadastro/user/', views.signup, name='cadastro_usuario'),
+<<<<<<< Updated upstream
 
     path('cadastro/', views.cadastros, name='cadastros'),
     path('add/produto/', views.add_produto, name='add_produto'),
@@ -29,4 +30,8 @@ urlpatterns = [
     path('add/cidade/', views.add_cidade, name='add_cidade'),
     path('add/estado/', views.add_estado, name='add_estado'),
     path('add/cep/', views.add_cep, name='add_cep'),
+=======
+    path('promocao/', views.promocao, name='promocao'),
+    
+>>>>>>> Stashed changes
 ]

@@ -18,22 +18,14 @@
   flex-wrap: wrap;
   display: inline-block;
 }
-
-.banner {
-  display: flex;
-  text-align: center;
-  padding: 10px;
-}
 </style>
-    <div class="banner">
-        <img src="{% static 'banner-horizontal-total-otm.jpg' %}" width="100%" height="300" title="Banner">
-    </div>
-
-<div>
-    <h1 id="Titulo">Produtos</h1>
+<div class="alert alert-primary" role="alert">
+  <h1 id="Titulo">PROMOÇÕES</h1>
+  <div>
+    
     <div class="container-produtos">
       {% for p in produto %}
-      
+        {% if p.desconto > 0 %}
       
       <div class="card mx-3 mb-3" style="width: 16rem;">
           {% load static %}
@@ -48,10 +40,14 @@
       
           </div>
         </div>
+        {% endif %}
       {% empty %}
         <div> Ainda não há Produtos cadastrados. </div>
+        
       {% endfor %}
       </div>
+</div>
+
 
 {% endblock conteudo %}
 

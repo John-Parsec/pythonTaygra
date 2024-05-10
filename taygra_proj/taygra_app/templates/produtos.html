@@ -13,6 +13,10 @@
     text-transform: uppercase;
     padding: 20px;
   }
+    .card {
+  flex-wrap: wrap;
+  display: inline-block;
+}
 </style>
 <div class="alert alert-primary" role="alert">
   <h1 id="Titulo">Produtos</h1>
@@ -20,8 +24,6 @@
     
     <div class="container-produtos">
       {% for p in produto %}
-      
-      
       <div class="card mx-3 mb-3" style="width: 16rem;">
           {% load static %}
           <img src="{% static p.imagem_path %}" class="card-img-top" alt="..." height="300px">
