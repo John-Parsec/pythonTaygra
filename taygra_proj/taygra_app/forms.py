@@ -212,6 +212,8 @@ class CEPForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
         self.fields['cep'].widget.attrs.update({'class': 'form-control', 'placeholder': 'CEP*', 'required': 'required'})
         self.fields['bairro'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Bairro*', 'required': 'required'})
         self.fields['cidade'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Cidade*', 'required': 'required'})

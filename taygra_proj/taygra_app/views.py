@@ -313,6 +313,15 @@ def add_cep(request):
 
         return HttpResponseRedirect(reverse('add_cep'))
     
+    if request.method == 'GET':
+        cep_form = CEPForm()
+
+        context = {
+            'form': cep_form
+        }
+
+        return render(request, 'cadastros/add_cep.html', context=context)
+    
 def add_endereco(request):
     if request.method == 'POST':
         logradouro = request.POST.get('logradouro')
