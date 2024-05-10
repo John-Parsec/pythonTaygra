@@ -21,6 +21,7 @@ def context_(request):
 
 def home(request):
     context = context_(request)
+    context['produto'] = Produto.objects.all()
 
     return render(request, 'index.html', context=context)
 
