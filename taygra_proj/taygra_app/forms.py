@@ -71,6 +71,10 @@ class CarrinhoForm(forms.ModelForm):
             'usuario': 'Usuário ID',
             'produtos': 'Produto ID'
         }
+        widgets = {
+            'usuario': forms.Select(),
+            'produto': forms.Select()
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -149,6 +153,10 @@ class PedidoForm(forms.ModelForm):
             'codigo_barras': 'Código de Barras',
             'status': 'Status'
         }
+        widgets = {
+            'usuario': forms.Select(),
+            'produtos': forms.Select(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -213,7 +221,7 @@ class CEPForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         self.fields['cep'].widget.attrs.update({'class': 'form-control', 'placeholder': 'CEP*', 'required': 'required'})
         self.fields['bairro'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Bairro*', 'required': 'required'})
         self.fields['cidade'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Cidade*', 'required': 'required'})
