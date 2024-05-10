@@ -134,14 +134,29 @@ def login(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         
-        if user is not None:
+        if user:
             auth_login(request, user)
             return HttpResponseRedirect(reverse('home'))
         
-    context = {}
+        form_login = LoginForm(request.POST)
 
-    return render(request, 'login.html', context=context)
+        form_login.add_error(None, ['Usuário ou senha inválidos'])
 
+        context = {
+            'form': form_login,
+        }
+        
+        return render(request, 'login.html', context=context)
+        
+    if request.method == 'GET':
+        login_form = LoginForm()
+
+        context = {
+            'form': login_form
+        }
+
+        return render(request, 'login.html', context=context)
+    
 def logout(request):
     auth_logout(request)
 
@@ -158,6 +173,11 @@ def signup(request):
 
         return HttpResponseRedirect(reverse('login'))
 
-    context = {}
+    if request.method == 'GET':
+        signup_form = SignupForm()
 
-    return render(request, 'signup.html', context=context)
+        context = {
+            'form': signup_form
+        }
+
+        return render(request, 'signup.html', context=context)

@@ -52,6 +52,23 @@ class Pedido(models.Model):
         self.total = self.calcular_total()
         super().save(*args, **kwargs)
 
+class Carrinho(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    produtos = models.ManyToManyField(Produto)
+    
+    def __str__(self):
+        return f'Carrinho de {self.usuario.username}'
+    
+    def calcular_total(self):
+        total = 0
+        for produto in self.produtos.all():
+            total += produto.preco_com_desconto()
+        return total
+    
+    def save(self, *args, **kwargs):
+        self.total = self.calcular_total()
+        super().save(*args, **kwargs)
+
 class Status(models.Model):
     nome = models.CharField(max_length=250)
     

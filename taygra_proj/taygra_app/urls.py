@@ -12,4 +12,6 @@ urlpatterns = [
     path('pedido/<int:pedido_id>/', views.pedido, name='pedido'),
     path('contato/', views.contato, name='contato'),
     path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
+    path('cadastro/user/', views.signup, name='cadastro_usuario'),
 ]
