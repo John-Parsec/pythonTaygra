@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from taygra_app.models import Produto, Categoria, Pedido, Contato, Usuario, Status
+
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
@@ -21,7 +23,6 @@ def home(request):
     return render(request, 'index.html', context=context)
 
 def produtos(request):
-    Produto = apps.get_model('taygra_app', 'Produto')
     produtos = Produto.objects.all()
 
     context = context_(request)
@@ -33,7 +34,6 @@ def produtos(request):
     return render(request, 'produtos.html', context=context)
 
 def produto(request, produto_id):
-    Produto = apps.get_model('taygra_app', 'Produto')
     produto = Produto.objects.get(id=produto_id)
 
     context = context_(request)
@@ -45,7 +45,6 @@ def produto(request, produto_id):
     return render(request, 'produto.html', context=context)
 
 def categorias(request):
-    Categoria = apps.get_model('taygra_app', 'Categoria')
     categorias = Categoria.objects.all()
 
     context = context_(request)
@@ -57,7 +56,6 @@ def categorias(request):
     return render(request, 'categorias.html', context=context)
 
 def categoria(request, categoria_id):
-    Categoria = apps.get_model('taygra_app', 'Categoria')
     categoria = Categoria.objects.get(id=categoria_id)
 
     context = context_(request)
@@ -68,8 +66,35 @@ def categoria(request, categoria_id):
 
     return render(request, 'categoria.html', context=context)
 
+def pedidos(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+
+    pedido = Pedido.objects.get(usuario=request.user)
+
+    context = context_(request)
+
+    context = {
+        'pedido': pedido
+    }
+
+    return render(request, 'pedido.html', context=context)
+
+def pedido(request, pedido_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    
+    pedido = Pedido.objects.get(id=pedido_id)
+
+    context = context_(request)
+
+    context = {
+        'pedido': pedido
+    }
+
+    return render(request, 'pedido.html', context=context)
+
 def carrinho(request):
-    Pedido = apps.get_model('taygra_app', 'Pedido')
     pedidos = Pedido.objects.all()
 
     context = context_(request)
@@ -80,9 +105,18 @@ def carrinho(request):
 
     return render(request, 'carrinho.html', context=context)
 
+def contato(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        assunto = request.POST.get('assunto')
+        mensagem = request.POST.get('mensagem')
+
+        contato = Contato(nome, email, assunto, mensagem)
+        contato.save()
+
 def login(request):
     if request.method == 'POST':
-        Usuario = apps.get_model('taygra_app', 'Usuario')
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -94,3 +128,23 @@ def login(request):
     context = {}
 
     return render(request, 'login.html', context=context)
+
+def logout(request):
+    auth_logout(request)
+
+    return HttpResponseRedirect(reverse('home'))
+
+def signup(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password = make_password(password)
+        user = Usuario(username=username, email=email, password=password)
+        user.save()
+
+        return HttpResponseRedirect(reverse('login'))
+
+    context = {}
+
+    return render(request, 'signup.html', context=context)
