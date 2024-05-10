@@ -18,6 +18,18 @@
     .topo-site img {
         height: 90px;
     }
+
+    .banner{
+        display: flex;
+        text-align: center;
+        padding: 10px;
+    
+    }
+
+    .numeracao img {
+        text-align: center;
+    }
+
 </style>
   </head>
   <div class="topo-site">
@@ -37,11 +49,31 @@
           </div>
         </div>
       </nav>
+      <div class="numeracao"> <img src="{% static 'arrow-gif-new.gif' %}" height=""> 
+        <div class="btn-group" role="group" aria-label="Exemplo básico">
+            <button type="button" class="btn btn-secondary">33</button>
+            <button type="button" class="btn btn-secondary">34</button>
+            <button type="button" class="btn btn-secondary">35</button>
+            <button type="button" class="btn btn-secondary">36</button>
+            <button type="button" class="btn btn-secondary">37</button>
+            <button type="button" class="btn btn-secondary">38</button>
+            <button type="button" class="btn btn-secondary">39</button>
+            <button type="button" class="btn btn-secondary">40</button>
+            <button type="button" class="btn btn-secondary">41</button>
+            <button type="button" class="btn btn-secondary">42</button>
+            <button type="button" class="btn btn-secondary">43</button>
+            <button type="button" class="btn btn-secondary">44</button>
+            <button type="button" class="btn btn-secondary">45</button>
+          </div>
+      </div>
   </div>
 
 
   <body>
-
+    {% load static %}
+    <div class="banner">
+        <img src="{% static 'banner-horizontal-total-otm.jpg' %}" width="80%" height="300" title="Banner">
+    </div>
     <main>
         
         {% block conteudo %}
@@ -51,7 +83,7 @@
     </main>
 
     <footer>
-        <div class="footer"><h6></h6></div>
+        <div class="footer"><h6>Taygra</h6></div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   </body>
